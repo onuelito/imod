@@ -1,0 +1,45 @@
+# imod - Independent Modules
+
+    imod is a project aiming to provide developpers with a range of modules to
+    build software on laptops/desktops. Modules include:
+
+        > imod-gp: "imod-graphics" for creating windows and graphics context
+            and providing an abstraction on keyboard and mouse.
+        > imod-ad: "imod-audio" for abstracting usage of OSS
+        > imod-in: "imod-input" for controller support
+        > imod-mt: "imod-math" to extend math with Matrices, Vectors, etc.
+        > imot-nt: "imod-net" abstraction layer for networking used in multiplayer
+
+    Every functions available to developpers will start with imod[NameOfModule].
+    For instance:
+        imodGP_CreateWindow(...)
+        imodAD_InitializeSound(...)
+        imodIN_FindController(...)
+        imodMT_CreateMatrix(...)
+        imodNT_AddMultiplayer(...) # if only it was that simple
+
+
+    Each module's include folder has the following directories: public, private, 
+    reserved.
+        
+        > public: available to the developpers (strat with imodGP, imodAD, etc)
+        > private: available only to the module (end with imodGP, imodAD, etc)
+        > reserved: available to a module section only (components do not possess the module pre/postfix)
+
+
+    Imod aims to be compatible with the following operating ranging from most prioritiezed to least
+    from top to bottom:
+        > FreeBSD
+        > OpenBSD
+        > NetBSD
+
+
+
+    # Usage
+        1. Run the makefile of the module of choice from your project directory
+
+        2. Copy lib folder within the module to your project directory
+
+        3. Add the library to -L flag when using clang / gcc
+
+        4. Compile with the -l flags with each libraries names
