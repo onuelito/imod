@@ -22,10 +22,13 @@ os_name = reader:read("*a")
 reader:close()
 libGLESv3 = {
     FreeBSD="/usr/local/lib/libGLESv2.so",
+    OpenBSD="/usr/X11R6/lib/libGLESv2.a",
 }
 
 libVulkan = {
     FreeBSD="/usr/local/lib/libvulkan.so",
+    OpenBSD={"/usr/X11R6/lib/libvulkan_radeon.so",
+             "/usr/X11R6/lib/libvulkan_intel.so",}
 }
 
 function exists(path)
@@ -61,6 +64,18 @@ if string.match(os_name, "FreeBSD") then
     end
 
     specs=specs.."\n#define VULKAN_API_UNSUPPORTED"
+
+elseif string.match(os_name, "OpenBSD") then
+
+    -- OpenBSD does not have X11. It uses Xenocara
+    specs=specs.."\n#define XDG_SESSION_TYPE_X11"
+
+    if exists(libGLESv3.OpenBSD) then
+        specs=specs.."\n#define OPENGL_ES3_API_SUPPORTED"
+    else
+        specs=specs.."\n#define OPENGL_ES3_API_UNSUPPORTED"
+    end
+
 end
 
 specs=specs.."\n#endif"
