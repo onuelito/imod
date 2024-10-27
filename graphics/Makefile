@@ -2,6 +2,7 @@
 # global variables
 SOURCES=\
 	src/window.c \
+	src/event.c \
 
 INCLUDE=\
 	-I /usr/local/include \
@@ -29,8 +30,6 @@ SOURCES_WAYLAND=\
 SOURCES_OPENGL=\
 	src/egl.c \
 
-LDFLAGS_WAYLAND=-lwayland-client
-
 
 # library location
 LIBDIR=lib
@@ -45,7 +44,7 @@ LIBGLESv3=
 LIBVULKAN=
 
 LIBX11 = -lX11
-LIBWAYLAND = -lwayland-egl -lwayland-client
+LIBWAYLAND = -lwayland-egl -lwayland-client -lxkbcommon
 
 # FreeBSD variables
 .if $(OS_NAME) == "FreeBSD"
@@ -62,7 +61,7 @@ LIBEGL != [ -e "/usr/local/lib/libEGL.so" ] && [ -e "/usr/local/include/EGL" ] &
 SOURCES_X11=
 LIBX11=
 
-.elif $(XDG_SESSION_TYPE} == "x11"
+.elif ${XDG_SESSION_TYPE} == "x11"
 
 SOURCES_WAYLAND=
 LIBWAYLAND=
@@ -95,7 +94,6 @@ LIBEGL != [ -e "/usr/X11R6/lib/libEGL.a" ] && [ -e "/usr/X11R6/include/EGL" ] &&
 
 
 all:
-	@echo $(ME)
 	mkdir -p $(LIBDIR)
 	$(CC) -shared -fPIC -Wl,-soname,$(LIBNAME).so.1 -o $(LIBNAME).so.1.0.0 $(SOURCES) $(SOURCES_OPENGL) \
 		$(SOURCES_WAYLAND) $(SOURCES_X11) $(INCLUDE) $(LDFLAGS) $(LIBVULKAN) $(LIBGLESv3) $(LIBEGL) \

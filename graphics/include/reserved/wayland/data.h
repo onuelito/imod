@@ -2,6 +2,7 @@
 #define RESERVED_WAYLAND_WINDOW_DATA
 
 /* TODO: Move this into private */
+#include <xkbcommon/xkbcommon.h>
 
 #include <wayland-client.h>
 #include <wayland-egl.h>
@@ -17,6 +18,8 @@ struct WaylandData {
     struct wl_surface       *surface;
     struct wl_registry      *registry;
     struct wl_compositor    *compositor;
+    struct wl_seat          *seat;
+    struct wl_keyboard      *keyboard;
     struct wl_egl_window    *wl_egl_window;
 
     /* xdg shell interface */
@@ -25,6 +28,13 @@ struct WaylandData {
         struct xdg_surface  *surface;
         struct xdg_toplevel *toplevel;
     } xdg;
+
+    /* Keyboard data */
+    struct {
+        struct xkb_state *state;
+        struct xkb_context *context;
+        struct xkb_keymap *keymap;
+    } xkb;
 
     /* Unstable protocols. Will be changed when a stable alternative
      * is added to wayland */

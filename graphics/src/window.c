@@ -6,6 +6,7 @@
 #include "public/window.h"
 
 #include "private/specs.h"
+#include "private/event.h"
 #include "private/window.h"
 
 #include "private/x11/window.h"
@@ -49,6 +50,9 @@ struct imodGP_Window *imodGP_CreateWindow(struct imodGP_CreateInfo createInfo)
     free(window);
     exit(1);
 #endif
+
+    /* Remove all randomly assigned values by the compiler */
+    Event_ClearWindowEvents(window);
 
     return window;
 }

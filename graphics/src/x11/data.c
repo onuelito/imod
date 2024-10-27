@@ -48,6 +48,9 @@ void X11_CreateData(struct imodGP_Window *window)
         xattr.override_redirect = False;
         XChangeWindowAttributes(data->display, data->window, CWOverrideRedirect, &xattr);
 
+        /* Prevent events from repeating non stop like keypress */
+        XAutoRepeatOff(data->display);
+
         xev_delete_window = XInternAtom(data->display, "WM_DELETE_WINDOW", True);
         XSetWMProtocols(data->display, data->window, &xev_delete_window, 1);
 

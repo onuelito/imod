@@ -5,6 +5,7 @@
  * between an OpenGL ES3/Vulkan context */
 
 #include "../graphics/include/public/window.h"
+#include "../graphics/include/public/event.h"
 #include "../graphics/include/public/flags.h"
 
 

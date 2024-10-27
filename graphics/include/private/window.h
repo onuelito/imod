@@ -4,6 +4,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "public/event.h"
+#include "private/event.h"
+
 struct WindowData;
 
 struct imodGP_Window {
@@ -16,6 +19,10 @@ struct imodGP_Window {
 
     int graphicsAPI;
     struct WindowData *data;
+
+    int event_pop_index;
+    int event_push_index;
+    struct imodGP_Event event_queue[MAX_WINDOW_EVENTS];
 };
 
 

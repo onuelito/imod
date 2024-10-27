@@ -55,6 +55,7 @@ void Wayland_CreateData(struct imodGP_Window *window)
         }
 
         data->registry = wl_display_get_registry(data->display);
+        data->xkb.context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
         wl_registry_add_listener(data->registry, &registry_listener, wdata);
 
         wl_display_dispatch(data->display);
