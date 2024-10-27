@@ -36,10 +36,6 @@
 
 
     # Usage
-        1. Run the makefile of the module of choice from your project directory
 
-        2. Copy lib folder within the module to your project directory
-
-        3. Add the library to -L flag when using clang / gcc
-
-        4. Compile with the -l flags with each libraries names
+        For reference on how to use this library please view the `examples` folder for sample programs
+        that utilizes it.
